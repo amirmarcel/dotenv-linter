@@ -1,5 +1,5 @@
 # dotenv-linter
-
+![CI](https://github.com/amirmarcel/dotenv-linter/actions/workflows/ci.yml/badge.svg)
 A CLI tool that diffs `.env` files against `.env.example` to catch missing or extra keys — with CI-friendly exit codes.
 
 ## The Problem
