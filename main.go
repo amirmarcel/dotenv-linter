@@ -4,6 +4,7 @@ import (
 	"flag"
 	"fmt"
 	"os"
+	"sort"
 
 	"github.com/amirmarcel/dotenv-linter/diff"
 	"github.com/amirmarcel/dotenv-linter/parser"
@@ -28,9 +29,12 @@ func main() {
 
 	missingInLocal, missingInExample := diff.DiffKeys(example, local)
 
+	sort.Strings(missingInLocal)
 	for _, key := range missingInLocal {
 		fmt.Println("x Missing in .env:           ", key)
 	}
+
+	sort.Strings(missingInExample)
 	for _, key := range missingInExample {
 		fmt.Println("x Missing in .env.example:", key)
 	}
