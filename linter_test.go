@@ -1,9 +1,14 @@
 package main
 
-import "testing"
+import (
+	"testing"
+
+	"github.com/amirmarcel/dotenv-linter/diff"
+	"github.com/amirmarcel/dotenv-linter/parser"
+)
 
 func TestParseEnvFile(t *testing.T) {
-	keys, err := parseEnvFile("testdata/.env.example")
+	keys, err := parser.ParseEnvFile("testdata/.env.example")
 	if err != nil {
 		t.Fatalf("unexpected error: %v", err)
 	}
@@ -31,7 +36,7 @@ func TestDiffKeys(t *testing.T) {
 		"DEBUG_MODE": true,
 	}
 
-	missingInLocal, missingInExample := diffKeys(example, local)
+	missingInLocal, missingInExample := diff.DiffKeys(example, local)
 
 	if len(missingInLocal) != 1 || missingInLocal[0] != "SECRET_KEY" {
 		t.Errorf("expected SECRET_KEY missing in local, got %v", missingInLocal)

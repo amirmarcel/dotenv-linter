@@ -4,26 +4,29 @@ import (
 	"flag"
 	"fmt"
 	"os"
+
+	"github.com/amirmarcel/dotenv-linter/diff"
+	"github.com/amirmarcel/dotenv-linter/parser"
 )
 
 func main() {
 	envPath := flag.String("env", ".env", "path to .env file")
 	examplePath := flag.String("example", ".env.example", "path to .env.example file")
 	flag.Parse()
-	example, err := parseEnvFile(*examplePath)
 
+	example, err := parser.ParseEnvFile(*examplePath)
 	if err != nil {
 		fmt.Println("Error reading .env.example:", err)
 		os.Exit(1)
 	}
 
-	local, err := parseEnvFile(*envPath)
+	local, err := parser.ParseEnvFile(*envPath)
 	if err != nil {
 		fmt.Println("Error reading .env:", err)
 		os.Exit(1)
 	}
 
-	missingInLocal, missingInExample := diffKeys(example, local)
+	missingInLocal, missingInExample := diff.DiffKeys(example, local)
 
 	for _, key := range missingInLocal {
 		fmt.Println("x Missing in .env:           ", key)
