@@ -13,6 +13,7 @@ import (
 func main() {
 	envPath := flag.String("env", ".env", "path to .env file")
 	examplePath := flag.String("example", ".env.example", "path to .env.example file")
+	quiet := flag.Bool("quiet", false, "suppress output, exit code only")
 	flag.Parse()
 
 	example, err := parser.ParseEnvFile(*examplePath)
@@ -30,17 +31,23 @@ func main() {
 	missingInLocal, missingInExample := diff.DiffKeys(example, local)
 
 	sort.Strings(missingInLocal)
-	for _, key := range missingInLocal {
-		fmt.Println("x Missing in .env:           ", key)
-	}
-
 	sort.Strings(missingInExample)
-	for _, key := range missingInExample {
-		fmt.Println("x Missing in .env.example:", key)
+
+	if !*quiet {
+		for _, key := range missingInLocal {
+			fmt.Println("x Missing in .env:           ", key)
+		}
+	
+		
+		for _, key := range missingInExample {
+			fmt.Println("x Missing in .env.example:", key)
+		}
 	}
 
 	if len(missingInLocal) == 0 && len(missingInExample) == 0 {
-		fmt.Println("All keys in sync")
+		if !*quiet {
+			fmt.Println("All keys in sync")
+		}
 		os.Exit(0)
 	}
 
