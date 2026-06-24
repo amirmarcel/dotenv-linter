@@ -1,5 +1,6 @@
 # dotenv-linter
 ![CI](https://github.com/amirmarcel/dotenv-linter/actions/workflows/ci.yml/badge.svg)
+
 A CLI tool that diffs `.env` files against `.env.example` to catch missing or extra keys — with CI-friendly exit codes.
 
 ## The Problem
@@ -23,9 +24,14 @@ Exits `0` if all keys are in sync. Exits `1` if drift is detected — making it 
 
 ## Installation
 
+**Go install:**
 ```bash
 go install github.com/amirmarcel/dotenv-linter@latest
 ```
+
+**Download binary:**
+
+Download the latest release for your platform from the [releases page](https://github.com/amirmarcel/dotenv-linter/releases)
 
 ## Flags
 
