@@ -35,10 +35,36 @@ Download the latest release for your platform from the [releases page](https://g
 
 ## Flags
 
-| Flag        | Default          | Description              |
-|-------------|------------------|--------------------------|
-| `--env`     | `.env`           | Path to your local .env  |
-| `--example` | `.env.example`   | Path to your template    |
+| Flag        | Default          | Description                        |
+|-------------|------------------|------------------------------------|
+| `--env`     | `.env`           | Path to your local .env            |
+| `--example` | `.env.example`   | Path to your template              |
+| `--quiet`   | `false`          | Suppress output, exit code only    |
+| `--json`    | `false`          | Output results to JSON             |
+
+## CI Integration
+
+**GitHub Action:**
+
+```yaml
+- name: Lint .env files
+  run: dotenv-linter --env .env --example .env.example
+```
+
+**Pre-commit hook:**
+
+
+Add this to `.git/hooks/pre-commit`:
+
+```bash
+#!/bin/sh
+dotenv-linter --env .env --example .env.example
+```
+
+Then make it executable:
+```bash
+chmod +x .git/hooks/pre-commit
+```
 
 ## Built With
 
