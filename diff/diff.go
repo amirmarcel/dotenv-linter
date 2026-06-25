@@ -1,8 +1,8 @@
 package diff
 
 func DiffKeys(example, local map[string]bool) ([]string, []string) {
-	var missingInLocal []string
-	var missingInExample []string
+	missingInLocal := []string{}
+	missingInExample := []string{}
 
 	for key := range example {
 		if !local[key] {
